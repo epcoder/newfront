@@ -1,12 +1,12 @@
+
 // src/components/User.jsx
 import React, { useState, useEffect } from "react";
 import styles from "./User.module.css";
-import { addUser, getAllUsers, getUserById } from "../../../Api/AA/UserApi"; // ✅ import API helpers
+import { addUser, getAllUsers } from "../../../Api/AA/UserApi";
 
 const User = () => {
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
-    user_id: "",
     user_name: "",
     password: "",
     email: "",
@@ -28,6 +28,22 @@ const User = () => {
     }
   };
 
+  // 🔑 Generate next user ID in U001 format
+  const generateNextUserId = () => {
+    if (users.length === 0) return "U001";
+
+    // Get numeric part of each user_id
+    const numbers = users.map(u => {
+      if (!u.user_id) return 0;
+      const numPart = u.user_id.replace(/^U0*/, ""); // remove 'U' and leading zeros
+      return parseInt(numPart, 10) || 0;
+    });
+
+    const maxNum = Math.max(...numbers);
+    const nextNum = maxNum + 1;
+    return "U" + String(nextNum).padStart(3, "0");
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -35,11 +51,15 @@ const User = () => {
   const handleAddUser = async (e) => {
     e.preventDefault();
     try {
-      await addUser(formData);
+      const newUser = {
+        user_id: generateNextUserId(), // auto-generated ID
+        ...formData,
+      };
+
+      await addUser(newUser);
       alert("User added successfully!");
       fetchUsers();
       setFormData({
-        user_id: "",
         user_name: "",
         password: "",
         email: "",
@@ -51,17 +71,9 @@ const User = () => {
     }
   };
 
-  // ⚠️ Delete API is not yet in UserApi.jsx or your backend
-  // we can extend later with `deleteUser()` API helper
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      try {
-        // TODO: implement deleteUser in UserApi.jsx when backend supports it
-        alert("Delete API not yet implemented.");
-      } catch (error) {
-        console.error("Error deleting user:", error);
-        alert("Failed to delete user.");
-      }
+      alert("Delete API not yet implemented.");
     }
   };
 
@@ -127,14 +139,6 @@ const User = () => {
       <div className={styles.right}>
         <h2>Add User</h2>
         <form onSubmit={handleAddUser} className={styles.form}>
-          <input
-            type="text"
-            name="user_id"
-            placeholder="User ID"
-            value={formData.user_id}
-            onChange={handleChange}
-            required
-          />
           <input
             type="text"
             name="user_name"

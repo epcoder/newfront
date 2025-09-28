@@ -39,12 +39,7 @@ const Sidebar = ({ setActivePage }) => {
         <CartCheck /> {!collapsed && "Order"}
       </div>
 
-      <div
-        className={styles.sidebarItem}
-        onClick={() => setActivePage("StockC")}
-      >
-        <Boxes /> {!collapsed && "Stock Category"}
-      </div>
+      
 
       <div
         className={styles.sidebarItem}

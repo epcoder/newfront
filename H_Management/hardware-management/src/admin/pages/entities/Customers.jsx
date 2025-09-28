@@ -1,51 +1,80 @@
-import React, { useState } from 'react';
-import styles from './Customer.module.css';
+import React, { useState, useEffect } from "react";
+import styles from "./Customer.module.css";
+import {
+  getAllCustomers,
+  createCustomer,
+  updateCustomer,
+  deleteCustomer,
+} from "../../../Api/AA/CustomerApi";
 
 const Customer = () => {
-  const [customers, setCustomers] = useState([
-    {
-      id: 1,
-      name: 'Nimal Perera',
-      nic : '20000000000',
-      phone: '0771234567',
-      email: 'nimal@gmail.com',
-      address: 'Colombo',
-      type: 'Regular',
-    },
-    {
-      id: 2,
-      name: 'Kamal Silva',
-      nic:'200000000001',
-      phone: '0719876543',
-      email: 'kamal@gmail.com',
-      address: 'Matara',
-      type: 'VIP',
-    },
-  ]);
-
+  const [customers, setCustomers] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    nic:'',
-    phone: '',
-    email: '',
-    address: '',
-    type: 'Regular',
+    name: "",
+    nic: "",
+    phone: "",
+    email: "",
+    address: "",
+    type: "Regular",
   });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [editingCustomer, setEditingCustomer] = useState(null);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  // Fetch all customers on mount
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
+
+  const fetchCustomers = async () => {
+    try {
+      const res = await getAllCustomers();
+      setCustomers(res.data);
+    } catch (err) {
+      console.error("Error fetching customers:", err);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleAddCustomer = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newCustomer = {
-      id: customers.length + 1,
-      ...formData,
-    };
-    setCustomers([...customers, newCustomer]);
-    setFormData({ name: '',nic: '', phone: '', email: '', address: '', type: 'Regular' });
+    try {
+      if (editingCustomer) {
+        await updateCustomer(editingCustomer.id, formData);
+      } else {
+        await createCustomer(formData);
+      }
+      fetchCustomers();
+      setFormData({ name: "", nic: "", phone: "", email: "", address: "", type: "Regular" });
+      setEditingCustomer(null);
+    } catch (err) {
+      console.error("Error saving customer:", err);
+    }
+  };
+
+  const handleEdit = (cust) => {
+    setEditingCustomer(cust);
+    setFormData({
+      name: cust.name,
+      nic: cust.nic,
+      phone: cust.phone,
+      email: cust.email,
+      address: cust.address,
+      type: cust.type,
+    });
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this customer?")) {
+      try {
+        await deleteCustomer(id);
+        fetchCustomers();
+      } catch (err) {
+        console.error("Error deleting customer:", err);
+      }
+    }
   };
 
   const filteredCustomers = customers.filter(
@@ -68,7 +97,6 @@ const Customer = () => {
         <table className={styles.table}>
           <thead>
             <tr>
-              
               <th>Name</th>
               <th>NIC</th>
               <th>Phone</th>
@@ -86,8 +114,12 @@ const Customer = () => {
                 <td>{cust.email}</td>
                 <td>{cust.type}</td>
                 <td>
-                  <button className={styles.editBtn}>Edit</button>
-                  <button className={styles.deleteBtn}>Delete</button>
+                  <button onClick={() => handleEdit(cust)} className={styles.editBtn}>
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(cust.id)} className={styles.deleteBtn}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -96,8 +128,8 @@ const Customer = () => {
       </div>
 
       <div className={styles.right}>
-        <h2>Add Customer</h2>
-        <form onSubmit={handleAddCustomer} className={styles.cusform}>
+        <h2>{editingCustomer ? "Edit Customer" : "Add Customer"}</h2>
+        <form onSubmit={handleSubmit} className={styles.cusform}>
           <input
             type="text"
             name="name"
@@ -141,7 +173,9 @@ const Customer = () => {
             <option value="VIP">VIP</option>
             <option value="Wholesale">Wholesale</option>
           </select>
-          <button type="submit" className={styles.addBtn}>Add Customer</button>
+          <button type="submit" className={styles.addBtn}>
+            {editingCustomer ? "Update Customer" : "Add Customer"}
+          </button>
         </form>
       </div>
     </div>
