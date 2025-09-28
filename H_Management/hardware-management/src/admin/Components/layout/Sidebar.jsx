@@ -67,16 +67,8 @@ const Sidebar = () => {
               <BarChart /> Profit & Loss Statement
             </button>
           </li>
-          <li>
-            <button onClick={() => navigate("/admin/download-reports")}>
-              <Download /> Download Reports
-            </button>
-          </li>
-          <li>
-            <button onClick={() => navigate("/admin/tax-summary")}>
-              <Receipt /> Tax Summary
-            </button>
-          </li>
+          
+          
           <li>
             <button onClick={() => navigate("/admin/yearly-comparison")}>
               <Calendar3 /> Yearly Comparison

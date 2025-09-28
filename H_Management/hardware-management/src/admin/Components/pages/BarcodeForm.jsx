@@ -27,17 +27,7 @@ const BarcodeForm = () => {
           />
         </div>
 
-        <div className={styles.field}>
-          <label htmlFor="quantity">Quantity</label>
-          <input
-            type="number"
-            id="quantity"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            required
-            min="1"
-          />
-        </div>
+        
 
         <div className={styles.field}>
           <label>Barcode Size</label>
