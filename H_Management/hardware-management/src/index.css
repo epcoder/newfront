@@ -62,9 +62,9 @@ code {
 
 /* Light Mode (keep as is or slightly refined) */
 .theme-light {
-  --sidebar1-bg: #cc0617;
-  --sidebar1-hover: #4A90E2;
-  --header1-bg:#f00505;
+  --sidebar1-bg:linear-gradient(90deg, #0a0057 45%, #360983 100%) #130464;
+  --sidebar1-hover: #2e68aa;
+  --header1-bg:#4141e1;
  
   --text1-color: rgb(247, 242, 242);
   --main1-bg: #ffffff; /* default light */
