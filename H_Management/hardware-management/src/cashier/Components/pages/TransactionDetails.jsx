@@ -1,7 +1,9 @@
 // src/components/cashier/TransactionDetails/TransactionList.jsx
-import React, { useState, useEffect } from 'react';
-import styles from './TransactionDetails.module.css';
-import { getAllTransactions, getTransactionById } from '../../../Api/CA/TDApi';
+import React, { useState, useEffect } from "react";
+import styles from "./TransactionDetails.module.css";
+import axios from "axios";
+
+const API_BASE = "https://hms-back-5gbr.onrender.com/api/v1/cashiertransaction";
 
 const TransactionList = () => {
   const [transactions, setTransactions] = useState([]);
@@ -15,35 +17,35 @@ const TransactionList = () => {
   // Fetch all transactions from backend
   const fetchTransactions = async () => {
     try {
-      const data = await getAllTransactions();
-      setTransactions(data);
+      const res = await axios.get(`${API_BASE}/all`);
+      setTransactions(res.data);
     } catch (error) {
+      console.error("Failed to fetch transactions:", error);
       alert("Failed to fetch transactions from backend.");
     } finally {
       setLoading(false);
     }
   };
 
-  // View single transaction details
+  // Fetch single transaction by ID
   const handleView = async (transactionId) => {
     try {
-      const data = await getTransactionById(transactionId);
-      setSelectedTransaction(data);
+      const res = await axios.get(`${API_BASE}/transactionId/${transactionId}`);
+      setSelectedTransaction(res.data);
     } catch (error) {
+      console.error("Failed to fetch transaction details:", error);
       alert("Failed to fetch transaction details.");
     }
   };
 
-  // Close transaction details modal
-  const handleCloseModal = () => {
-    setSelectedTransaction(null);
-  };
+  const handleCloseModal = () => setSelectedTransaction(null);
 
   if (loading) return <p>Loading transactions...</p>;
 
   return (
     <div className={styles.container}>
       <h2>📋 All Transactions</h2>
+
       <table className={styles.table}>
         <thead>
           <tr>
@@ -56,15 +58,25 @@ const TransactionList = () => {
           </tr>
         </thead>
         <tbody>
+          {transactions.length === 0 && (
+            <tr>
+              <td colSpan={6} style={{ textAlign: "center" }}>
+                No transactions found
+              </td>
+            </tr>
+          )}
           {transactions.map((txn) => (
             <tr key={txn.transactionId}>
               <td>{txn.transactionId}</td>
-              <td>{txn.customer}</td>
-              <td>{txn.date}</td>
-              <td>{txn.type}</td>
-              <td>{txn.total.toFixed(2)}</td>
+              <td>{txn.customerName || txn.customerId}</td>
+              <td>{new Date(txn.transactionDate).toLocaleString()}</td>
+              <td>{txn.transactionType}</td>
+              <td>{txn.total?.toFixed(2) || 0}</td>
               <td>
-                <button className={styles.viewBtn} onClick={() => handleView(txn.transactionId)}>
+                <button
+                  className={styles.viewBtn}
+                  onClick={() => handleView(txn.transactionId)}
+                >
                   👁️ View
                 </button>
               </td>
@@ -78,13 +90,60 @@ const TransactionList = () => {
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <h3>Transaction Details</h3>
-            <p><strong>ID:</strong> {selectedTransaction.transactionId}</p>
-            <p><strong>Customer:</strong> {selectedTransaction.customer}</p>
-            <p><strong>Date:</strong> {selectedTransaction.date}</p>
-            <p><strong>Type:</strong> {selectedTransaction.type}</p>
-            <p><strong>Total:</strong> Rs. {selectedTransaction.total.toFixed(2)}</p>
-            {/* Add more fields if needed */}
-            <button className={styles.closeBtn} onClick={handleCloseModal}>Close</button>
+            <p>
+              <strong>ID:</strong> {selectedTransaction.transactionId}
+            </p>
+            <p>
+              <strong>Customer:</strong>{" "}
+              {selectedTransaction.customerName || selectedTransaction.customerId}
+            </p>
+            <p>
+              <strong>Date:</strong>{" "}
+              {new Date(selectedTransaction.transactionDate).toLocaleString()}
+            </p>
+            <p>
+              <strong>Type:</strong> {selectedTransaction.transactionType}
+            </p>
+            <p>
+              <strong>Total:</strong> Rs. {selectedTransaction.total?.toFixed(2)}
+            </p>
+
+            {/* Items in transaction */}
+            {selectedTransaction.items && selectedTransaction.items.length > 0 && (
+              <table className={styles.table} style={{ marginTop: "10px" }}>
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Discount</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selectedTransaction.items.map((item) => (
+                    <tr key={item.itemId}>
+                      <td>{item.itemId}</td>
+                      <td>{item.itemName}</td>
+                      <td>{item.itemQuantity}</td>
+                      <td>{item.itemUnitPrice}</td>
+                      <td>{item.discount}</td>
+                      <td>
+                        {(
+                          item.itemQuantity * item.itemUnitPrice -
+                          (item.discount || 0)
+                        ).toFixed(2)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+            <button className={styles.closeBtn} onClick={handleCloseModal}>
+              Close
+            </button>
           </div>
         </div>
       )}
