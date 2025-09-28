@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styles from './YearlyComparisonPage.module.css';
-import { Bar, Line } from 'react-chartjs-2';
+import React, { useState, useEffect } from "react";
+import styles from "./YearlyComparisonPage.module.css";
+import { Bar, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,82 +10,132 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend
-} from 'chart.js';
+  Legend,
+} from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const YearlyComparisonPage = () => {
-  const [selectedYears, setSelectedYears] = useState(['2024', '2025']);
+  const [transactions, setTransactions] = useState([]);
+  const [financialData, setFinancialData] = useState({});
+  const [selectedYears, setSelectedYears] = useState([]);
 
-  const financialData = {
-    '2023': {
-      revenue: 700000,
-      cogs: 400000,
-      expenses: 150000,
-      netProfit: 150000,
-      monthlySales: [50000, 52000, 58000, 62000, 55000, 63000, 67000, 60000, 59000, 62000, 65000, 70000]
-    },
-    '2024': {
-      revenue: 800000,
-      cogs: 420000,
-      expenses: 160000,
-      netProfit: 220000,
-      monthlySales: [60000, 62000, 64000, 70000, 68000, 75000, 72000, 71000, 69000, 72000, 76000, 78000]
-    },
-    '2025': {
-      revenue: 950000,
-      cogs: 470000,
-      expenses: 180000,
-      netProfit: 300000,
-      monthlySales: [75000, 77000, 80000, 82000, 79000, 86000, 88000, 85000, 87000, 90000, 92000, 95000]
-    }
-  };
+  // 🔹 Fetch transactions from backend
+  useEffect(() => {
+    fetch("http://localhost:8080/api/v1/cashiertransaction/all")
+      .then((res) => res.json())
+      .then((data) => {
+        setTransactions(data);
+
+        // Aggregate yearly data
+        const yearlyMap = {};
+
+        data.forEach((txn) => {
+          const date = new Date(txn.transactionDate);
+          const year = date.getFullYear();
+
+          if (!yearlyMap[year]) {
+            yearlyMap[year] = {
+              revenue: 0,
+              cogs: 0,
+              expenses: 0,
+              netProfit: 0,
+              monthlySales: Array(12).fill(0),
+            };
+          }
+
+          const revenue = txn.totalPrice || 0;
+          const cost = txn.totalCostPrice || 0;
+          const profit = txn.totalProfit || 0;
+
+          yearlyMap[year].revenue += revenue;
+          yearlyMap[year].cogs += cost;
+          yearlyMap[year].netProfit += profit;
+          // ⚠️ If you have expenses separately, replace this logic
+          yearlyMap[year].expenses += cost * 0.2; // Dummy: 20% of cost as expenses
+
+          yearlyMap[year].monthlySales[date.getMonth()] += revenue;
+        });
+
+        setFinancialData(yearlyMap);
+
+        // Select the last 2 years by default
+        const allYears = Object.keys(yearlyMap).sort();
+        setSelectedYears(allYears.slice(-2));
+      })
+      .catch((err) => console.error("Error fetching transactions:", err));
+  }, []);
 
   const years = Object.keys(financialData);
 
+  // 📊 Chart Data
   const salesData = {
     labels: selectedYears,
     datasets: [
       {
-        label: 'Total Sales (Revenue)',
-        data: selectedYears.map(year => financialData[year].revenue),
-        backgroundColor: '#42a5f5'
-      }
-    ]
+        label: "Total Sales (Revenue)",
+        data: selectedYears.map((y) => financialData[y]?.revenue || 0),
+        backgroundColor: "#42a5f5",
+      },
+    ],
   };
 
   const profitData = {
     labels: selectedYears,
     datasets: [
       {
-        label: 'Net Profit',
-        data: selectedYears.map(year => financialData[year].netProfit),
-        backgroundColor: '#66bb6a'
-      }
-    ]
+        label: "Net Profit",
+        data: selectedYears.map((y) => financialData[y]?.netProfit || 0),
+        backgroundColor: "#66bb6a",
+      },
+    ],
   };
 
   const lineChartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
     datasets: selectedYears.map((year, idx) => ({
       label: `${year} Monthly Sales`,
-      data: financialData[year].monthlySales,
-      borderColor: idx === 0 ? '#42a5f5' : '#66bb6a',
+      data: financialData[year]?.monthlySales || [],
+      borderColor: idx === 0 ? "#42a5f5" : "#66bb6a",
       fill: false,
-      tension: 0.4
-    }))
+      tension: 0.4,
+    })),
   };
 
+  // 📊 Utils
   const getChangePercentage = (current, previous) => {
-    if (!previous || previous === 0) return 'N/A';
+    if (!previous || previous === 0) return "N/A";
     const change = ((current - previous) / previous) * 100;
-    return `${change > 0 ? '+' : ''}${change.toFixed(1)}%`;
+    return `${change > 0 ? "+" : ""}${change.toFixed(1)}%`;
   };
 
   const handleYearToggle = (year) => {
-    setSelectedYears(prev =>
-      prev.includes(year) ? prev.filter(y => y !== year) : [...prev, year].slice(-2)
+    setSelectedYears((prev) =>
+      prev.includes(year)
+        ? prev.filter((y) => y !== year)
+        : [...prev, year].slice(-2)
     );
   };
 
@@ -93,11 +143,14 @@ const YearlyComparisonPage = () => {
     <div className={styles.container}>
       <h2 className={styles.heading}>Yearly Financial Comparison</h2>
 
+      {/* Year Select Buttons */}
       <div className={styles.yearFilters}>
-        {years.map(year => (
+        {years.map((year) => (
           <button
             key={year}
-            className={`${styles.yearButton} ${selectedYears.includes(year) ? styles.active : ''}`}
+            className={`${styles.yearButton} ${
+              selectedYears.includes(year) ? styles.active : ""
+            }`}
             onClick={() => handleYearToggle(year)}
           >
             {year}
@@ -105,6 +158,7 @@ const YearlyComparisonPage = () => {
         ))}
       </div>
 
+      {/* Bar Charts */}
       <div className={styles.charts}>
         <div className={styles.chartBlock}>
           <h4>Sales by Year</h4>
@@ -116,42 +170,13 @@ const YearlyComparisonPage = () => {
         </div>
       </div>
 
+      {/* Line Chart */}
       <div className={styles.chartBlock}>
         <h4>Monthly Sales Trend Comparison</h4>
         <Line data={lineChartData} />
       </div>
 
-      <div className={styles.tableSection}>
-        <h4>Yearly Financial Summary</h4>
-        <table className={styles.summaryTable}>
-          <thead>
-            <tr>
-              <th>Year</th>
-              <th>Revenue</th>
-              <th>COGS</th>
-              <th>Expenses</th>
-              <th>Net Profit</th>
-              <th>Profit Change</th>
-            </tr>
-          </thead>
-          <tbody>
-            {selectedYears.map((year, index) => {
-              const current = financialData[year];
-              const previous = index > 0 ? financialData[selectedYears[index - 1]] : null;
-              return (
-                <tr key={year}>
-                  <td>{year}</td>
-                  <td>Rs. {current.revenue.toLocaleString()}</td>
-                  <td>Rs. {current.cogs.toLocaleString()}</td>
-                  <td>Rs. {current.expenses.toLocaleString()}</td>
-                  <td>Rs. {current.netProfit.toLocaleString()}</td>
-                  <td>{previous ? getChangePercentage(current.netProfit, previous.netProfit) : '—'}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      
     </div>
   );
 };
