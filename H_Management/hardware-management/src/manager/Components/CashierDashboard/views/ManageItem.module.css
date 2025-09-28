@@ -1,0 +1,82 @@
+.container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #031138;
+}
+
+.formSection, .tableSection {
+  margin-bottom: 30px;
+}
+
+.formGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background-color: #d6d6d6;
+  color: rgb(8, 8, 8);
+  
+}
+
+.addButton {
+  grid-column: span 2;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 50%;
+  
+}
+
+.addButton:hover {
+  background-color: #07c0c0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  border: 1px solid #eee9e9;
+  padding: 10px;
+  text-align: center;
+  background-color: #413f3f;
+}
+
+.table th {
+  background-color: #494747;
+}
+
+.lowStock {
+  background-color: #ffe0e0;
+}
+
+.deleteButton {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.deleteButton:hover {
+  background-color: #cc0000;
+}

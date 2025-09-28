@@ -1,0 +1,37 @@
+.listContainer {
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table tr{ color: black;}
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+.creditor {
+  color: green;
+  font-weight: bold;
+}
+
+.nonCreditor {
+  color: red;
+  font-weight: bold;
+}

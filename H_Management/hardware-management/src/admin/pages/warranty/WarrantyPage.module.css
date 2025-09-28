@@ -1,0 +1,163 @@
+/* Container */
+.wcontainer {
+  padding: 20px;
+  background: #f9fafb; /* lighter background */
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Actions row */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+/* Input & Select */
+.wcontainer input,
+.wcontainer select {
+  padding: 8px 12px;
+  margin: 5px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.wcontainer input:focus,
+.wcontainer select:focus {
+  border: 1px solid #ff8000;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.table th {
+  background: #ff8000;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+}
+
+.table td {
+  border: 1px solid #eee;
+  padding: 10px;
+}
+
+.table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.table tr:hover {
+  background: #f1f1f1;
+}
+
+/* Buttons - global reset */
+button {
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Add Button */
+button.add {
+  background-color: #ff8000;
+  color: white;
+}
+
+button.add:hover {
+  background-color: #e67300;
+}
+
+/* Export Buttons */
+button.export {
+  background-color: #ffa500;
+  color: white;
+  margin-right: 8px;
+}
+
+button.export:hover {
+  background-color: #e69500;
+}
+
+/* Edit Button */
+button.edit {
+  background-color: #4CAF50;
+  color: white;
+  margin-right: 5px;
+}
+
+button.edit:hover {
+  background-color: #3e9141;
+}
+
+/* Delete Button */
+button.delete {
+  background-color: #f44336;
+  color: white;
+}
+
+button.delete:hover {
+  background-color: #d9362a;
+}
+
+/* Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal */
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 420px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Modal Buttons */
+.modalButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+button.close {
+  background: #ccc;
+  color: black;
+}
+
+button.close:hover {
+  background: #b3b3b3;
+}
+
+/* Smooth Modal Fade */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

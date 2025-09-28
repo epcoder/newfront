@@ -1,0 +1,68 @@
+.invoicePage {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: rgb(207, 232, 243);
+}
+.invoicePage h2,.invoicePage h3{color: black;}
+.searchBar {
+  max-width: 300px;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.searchResults {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.itemCard {
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  width: 180px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.itemCard button {
+  margin-top: 5px;
+  padding: 6px 12px;
+  background: #007bff;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.billTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.billTable th, .billTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  color: black;
+}
+
+.summary {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.summary button {
+  padding: 10px 16px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

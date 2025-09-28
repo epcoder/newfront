@@ -1,0 +1,62 @@
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  
+  margin: 5px auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+  width: 80%;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.filterSection {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.financialTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.financialTable td {
+  padding: 12px;
+  border: 1px solid #ccc;
+}
+
+.netProfitRow {
+  font-weight: bold;
+  background-color: #f0f8ff;
+}
+
+.chartContainer {
+  margin-bottom: 20px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.buttonGroup button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttonGroup button:hover {
+  background-color: #0056b3;
+}

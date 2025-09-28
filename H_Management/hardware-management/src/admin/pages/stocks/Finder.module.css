@@ -1,0 +1,46 @@
+.container {
+  padding: 20px;
+  background-color: #b1cc93;
+  min-height: 100vh;
+}
+
+.heading {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.stockTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #cf5656;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.stockTable th,
+.stockTable td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.stockTable th {
+  background-color: #a0c8df;
+  font-weight: bold;
+}
+
+.noData {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+}

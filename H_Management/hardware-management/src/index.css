@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+/* index.css -cashier*/
+:root {
+  --sidebar-bg: linear-gradient(to bottom right, #1f3872, #072a63, #0a192f);
+  --sidebar-hover: #1e293b;
+  --header-bg:linear-gradient(to bottom right, #5b6e9c, #27417e, #0a192f);  /* #1a3168 */
+  --text-color: #e2e8f0;   /* soft light gray */
+  --main-bg: #141414;
+}
+
+/* Dark Mode (match your image) */
+.theme-dark {
+  --sidebar-bg: #1E1E2D;
+  --sidebar-hover: #1e293b;
+  --header-bg:#1E1E2D;
+  --text-color: #E4E6EB;   /* soft light gray */
+  --main-bg: #141414;
+
+}
+
+/* Light Mode (keep as is or slightly refined) */
+.theme-light {
+  --sidebar-bg: #125488;
+  --sidebar-hover: #e74e39;
+  --header-bg:#125488;
+  --text-color: #f3efef;
+  --main-bg: white; /* default light */
+}
+
+/* index.css -manager*/
+:root {
+  --sidebar1-bg: #1e293b;
+  --sidebar1-hover: #313f53;
+  --header1-bg: #f8fafc;
+  --text1-color: #000;
+  --main1-bg: #fff; /* default light */
+}
+
+/* Dark Mode (match your image) */
+.theme-dark {
+  --sidebar1-bg: linear-gradient(to bottom right,#001c3b,#002a53, #00386c);
+  --sidebar1-hover: #1e293b;
+  --header1-bg:linear-gradient(to bottom right,#001025,#001c3b ,#002a53);  /* #1a3168 */
+  --text1-color: #e2e8f0;   /* soft light gray */
+  --main1-bg: linear-gradient(to bottom right,#001c3b,#002a53, #00386c);
+
+}
+
+/* Light Mode (keep as is or slightly refined) */
+.theme-light {
+  --sidebar1-bg: #cc0617;
+  --sidebar1-hover: #4A90E2;
+  --header1-bg:#f00505;
+ 
+  --text1-color: rgb(247, 242, 242);
+  --main1-bg: #ffffff; /* default light */
+}
+
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}

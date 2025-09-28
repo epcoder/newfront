@@ -1,0 +1,29 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #101e3a, #0f172a);
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.main {
+  display: flex;
+  height: calc(100vh - 120px); /* Adjust if your header height changes */
+  gap: 20px;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar remains 25% */
+.viewArea {
+  flex: 1;
+  background-color: #1e293b;
+  border-radius: 10px;
+  padding: 25px;
+  overflow-y: auto;
+}
+
+

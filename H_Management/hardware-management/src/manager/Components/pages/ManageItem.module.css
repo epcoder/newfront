@@ -1,0 +1,267 @@
+/* ManageItem.module.css */
+
+.container {
+  background-color: hsl(0, 0%, 97%);
+  color: #f8f9fa;
+  padding: 28px 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+h2 {
+  color: hwb(132 1% 97%);
+  font-weight: 700;
+  font-size: 34px;
+  margin-bottom: 20px;
+}
+
+.message {
+  color: hsl(135, 94%, 39%);
+  font-weight: 600;
+  margin-bottom: 25px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.error {
+  color: #e74c3c;
+  font-weight: 600;
+  margin-bottom: 14px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.addButton {
+  background:#584add ;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+.addButton:hover {
+  background: linear-gradient(90deg, #3ae0d8 45%, #3b86d1 100%);
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(142, 142, 146, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal {
+  background: #edeef8;
+  padding: 48px 40px;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.2);
+  max-width: 900px;
+  width: 100%;
+  min-width: 400px;
+  max-height: 95vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #f8f9fa;
+}
+
+.modal h3 {
+  color: #3b86d1;
+  font-weight: 700;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.formGroup {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Two wider columns */
+  gap: 25px 45px; /* More vertical and horizontal spacing */
+  margin-bottom: 12px;
+}
+@media (max-width: 720px) {
+  .formGroup {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .formGroup {
+    grid-template-columns: 1fr; /* 1 column on very small screens */
+  }
+}
+
+.formGroup input {
+  width: 100%;
+  background: #181824;
+  border: 1.5px solid #353c59;
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #f8f9fa;
+  font-size: 15px;
+  transition: border-color 0.2s ease;
+  margin-bottom: 15px;
+}
+
+.formGroup input {
+  background: #181824;
+  border: 1.5px solid #353c59;
+  border-radius: 10px;
+  padding: 11px 16px;
+  color: #f8f9fa;
+  font-size: 15px;
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #844fc1;
+}
+
+.modalButtons {
+  margin-top: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.updateButton,
+.cancelButton,
+.addButton {
+  flex: 1;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 12px 0;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin: 0 6px;
+}
+
+.updateButton {
+  background: #21bf06;
+  color: white;
+}
+
+.updateButton:hover {
+  background: #1a9b04;
+}
+
+.cancelButton {
+  background: #e74c3c;
+  color: white;
+}
+
+.cancelButton:hover {
+  background: #bc312a;
+}
+
+.tableSection h3 {
+  margin-bottom: 14px;
+  color: #844fc1;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.table {
+  width: 100%;
+  background: #181824;
+  border-radius: 12px;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 6px 20px rgba(44, 62, 80, 0.15);
+  font-size: 14px;
+  max-height: 65vh;
+  overflow-y: auto;
+  display: block;
+  color: #cfd3f3;
+}
+
+.table thead {
+  background: #242546;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.table th,
+.table td {
+  padding: 11px 16px;
+  white-space: nowrap;
+  border-bottom: 1px solid #353c59;
+  text-align: left;
+}
+
+.table th {
+  font-weight: 600;
+  color: #7282a7;
+}
+
+.table tbody tr:hover {
+  background: #2a2d5e;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.editButton,
+.deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #e9e3f1;
+  margin-right: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.editButton:hover {
+  background-color: #3b86d1;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
+@media (max-width: 700px){
+  .formGroup {
+    grid-template-columns: 1fr !important;
+  }
+
+  .modalButtons {
+    flex-direction: column;
+  }
+
+  .updateButton,
+  .cancelButton,
+  .addButton {
+    margin: 8px 0;
+  }
+
+  .table {
+    font-size: 12px;
+    max-height: 50vh;
+  }}

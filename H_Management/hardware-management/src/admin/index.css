@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+/* Light Mode */
+body.light {
+  --bg-main: #f9fafb;
+  --text-main: #222;
+  --bg-sidebar: #ffffff;
+  --text-sidebar: #333;
+  --bg-header: #2c3e50;
+  --text-header: #fff;
+  --bg-nav: #ecf0f1;
+  --bg-button: #3498db;
+  --text-button: #fff;
+  --bg-footer: #ecf0f1;
+  --text-footer: #555;
+  --border-light: #ddd;
+  --hover-light: #e1e1e1;
+  --hover-dark: #2980b9;
+}
+
+/* Dark Mode */
+body.dark {
+  --bg-main: #1e1e2f;
+  --text-main: #f3f3f3;
+  --bg-sidebar: #2c2c3e;
+  --text-sidebar: #f1f1f1;
+  --bg-header: #111;
+  --text-header: #f9f9f9;
+  --bg-nav: #2a2a40;
+  --bg-button: #4a90e2;
+  --text-button: #fff;
+  --bg-footer: #2a2a40;
+  --text-footer: #ccc;
+  --border-light: #444;
+  --hover-light: #3b3b50;
+  --hover-dark: #3c78d8;
+}

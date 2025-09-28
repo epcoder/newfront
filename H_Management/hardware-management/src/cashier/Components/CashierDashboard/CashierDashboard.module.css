@@ -1,0 +1,62 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #101e3a, #0f172a);
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.main {
+  display: flex;
+  height: calc(100vh - 80px); /* header height, adjust if needed */
+  gap: 20px;
+  flex: 1;
+  overflow: hidden;
+  align-items: stretch; /* ensure sidebar and viewArea stretch equally */
+}
+
+
+/* Sidebar remains 25% */
+.viewArea {
+  flex: 1;
+  background-color: #1e293b;
+  border-radius: 10px;
+  padding: 25px;
+  overflow-y: auto;
+
+  /* Animation */
+  animation: fadeIn 0.4s ease-in-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* slight slide-up effect */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.viewArea {
+  animation: slideInRight 0.4s ease;
+}
+
+
+

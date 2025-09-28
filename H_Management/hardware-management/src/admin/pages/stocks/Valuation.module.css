@@ -1,0 +1,92 @@
+.container {
+  padding: 25px;
+  max-width: 1000px;
+  margin: auto;
+  background-color: #f8fafc;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.heading {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #222;
+}
+
+.filterSection {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.filterInput {
+  flex: 1;
+  min-width: 250px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.exportBtn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.exportBtn:hover {
+  background-color: #1d4ed8;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  padding: 12px 14px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.table th {
+  background-color: #e2e8f0;
+  font-weight: 600;
+}
+
+.totalLabel {
+  font-weight: bold;
+  text-align: right;
+  background-color: #f1f5f9;
+}
+
+.totalValue {
+  font-weight: bold;
+  color: #16a34a;
+  background-color: #f1f5f9;
+}
+
+@media (max-width: 768px) {
+  .filterSection {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table th, .table td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+}

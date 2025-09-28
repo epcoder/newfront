@@ -1,0 +1,256 @@
+/* Sidebar.module.css */
+.sidebar {
+  width: 200px;
+  /* margin-top: 5%; */  /* remove margin-top to align with header */
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+  color: #ffffff;
+  padding: 24px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  border-radius: 0 20px 20px 0;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+  /* position: fixed; remove this */
+  /* left: 0; top: 0; remove these */
+  overflow-y: auto;
+  z-index: 1000;
+  flex-shrink: 0;  /* prevent shrinking inside flex */
+  height: 100%;     /* make sidebar full height of main area */
+  animation: slideIn 0.5s ease-out;
+}
+
+
+.section {
+  margin-bottom: 32px;
+  padding: 0;
+}
+
+.section h3 {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  color: #a4eb48;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-left: 3px solid #f0fc84;
+  background: rgba(192, 132, 252, 0.1);
+  margin: 0 0 8px 0;
+  backdrop-filter: blur(10px);
+}
+
+.section h3::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  background: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 24px 12px 40px;
+
+   
+  line-height: 1.5;
+  background: transparent;
+  border: none;
+  color: #c1e264;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border-left: 3px solid transparent;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.button:hover {
+  color: #ffffff;
+  background: rgba(192, 132, 252, 0.15);
+  transform: translateX(4px);
+  box-shadow: inset 0 0 0 1px rgba(192, 132, 252, 0.2);
+   transform: translateX(4px);
+}
+
+.button.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(192, 132, 252, 0.3) 0%, rgba(168, 85, 247, 0.2) 100%);
+  border-left: 3px solid #c084fc;
+  position: relative;
+  box-shadow: 
+    inset 0 0 0 1px rgba(192, 132, 252, 0.3),
+    0 4px 12px rgba(192, 132, 252, 0.2);
+    transform: translateX(0);
+}
+
+.button.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #c084fc 0%, #a855f7 100%);
+  box-shadow: 0 0 8px rgba(192, 132, 252, 0.6);
+}
+
+.button.active::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: #c084fc;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(192, 132, 252, 0.8);
+  animation: pulse 2s infinite;
+}
+
+/* Hover effect for non-active buttons */
+.button:not(.active):hover {
+  background: rgba(148, 163, 184, 0.1);
+}
+
+/* Focus states for accessibility */
+.button:focus {
+  outline: 2px solid rgba(192, 132, 252, 0.5);
+  outline-offset: -2px;
+}
+
+/* Custom scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(192, 132, 252, 0.3) 0%, rgba(168, 85, 247, 0.3) 100%);
+  border-radius: 2px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(192, 132, 252, 0.5) 0%, rgba(168, 85, 247, 0.5) 100%);
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateY(-50%) scale(1.2);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.sidebar {
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    border-radius: 0;
+    position: fixed;
+    height: 100vh;
+    z-index: 9999;
+  }
+  
+  .button {
+    padding: 16px 24px 16px 40px;
+    font-size: 16px;
+  }
+}
+
+/* Enhanced visual effects */
+.section:first-child {
+  margin-top: 16px;
+}
+
+.section h3 {
+  position: relative;
+  overflow: hidden;
+}
+
+.section h3::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Button icon spacing */
+.button {
+  gap: 12px;
+}
+
+/* Active state glow effect */
+.button.active {
+  position: relative;
+  overflow: hidden;
+}
+
+.button.active::before {
+  background: linear-gradient(180deg, #c084fc 0%, #a855f7 100%);
+  filter: blur(1px);
+}
+
+/* Hover state improvements */
+.button:hover:not(.active) {
+  border-left-color: rgba(192, 132, 252, 0.5);
+}
+
+/* Typography improvements */
+.sidebar {
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

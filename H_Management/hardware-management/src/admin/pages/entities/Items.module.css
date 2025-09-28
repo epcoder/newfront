@@ -1,0 +1,155 @@
+/* Items.module.css */
+
+.container {
+  background: #181824;
+  color: #f8f9fa;
+  padding: 30px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header h2 {
+  color: #844fc1;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(44, 62, 80, 0.15);
+  font-size: 14px;
+  background: #20223a;
+  color: #cfd3f3;
+  max-height: 65vh;
+  overflow-y: auto;
+  display: block;
+}
+
+.table thead {
+  background: #242546;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.table th,
+.table td {
+  padding: 12px 16px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid #353c59;
+}
+
+.table th {
+  font-weight: 600;
+  color: #7282a7;
+}
+
+.table tbody tr:hover {
+  background: #2a2d5e;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+input[type="text"] {
+  background: #181824;
+  border: 1.5px solid #353c59;
+  color: #f8f9fa;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+  width: 50%;
+}
+
+input[type="text"]:focus {
+  border-color: #844fc1;
+  outline: none;
+}
+
+.editBtn, .deleteBtn, .saveBtn, .cancelBtn {
+  background: none;
+  border: none;
+  color: #844fc1;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  margin-right: 6px;
+  font-size: 13px;
+}
+
+.editBtn:hover {
+  background-color: #3b86d1;
+  color: white;
+}
+
+.saveBtn {
+  background-color: #21bf06;
+  color: white;
+}
+
+.saveBtn:hover {
+  background-color: #1a9b04;
+}
+
+.cancelBtn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.cancelBtn:hover {
+  background-color: #bc312a;
+}
+
+.deleteBtn:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
+@media (max-width: 850px) {
+  .header {
+    justify-content: center;
+  }
+  .searchInput {
+    width: 90%;
+  }
+  .table {
+    font-size: 12px;
+  }
+}
+.header input {
+  background: #20223a;
+  border: 1.5px solid #353c59;
+  border-radius: 10px;
+  color: #f8f9fa;
+  padding: 10px 18px;
+  font-size: 16px;
+  width: 20px;
+  transition: border-color 0.2s;
+   box-sizing: border-box;
+}
+
+.header input:focus {
+  outline: none;
+  border-color: #3b86d1;
+}

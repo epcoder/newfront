@@ -1,0 +1,28 @@
+.header {
+  height: 60px;
+  background: linear-gradient(to bottom right, #000818, #013452);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  font-size: 18px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* space between logo and text */
+}
+
+.logo {
+  height: 85px;  /* fit inside header (60px total) */
+  width: auto;
+}
+
+.title {
+  margin: 0;  /* remove default h1 margin */
+  font-size: 30px; /* keep it readable */
+  color:white;
+}

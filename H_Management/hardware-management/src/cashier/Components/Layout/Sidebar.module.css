@@ -1,0 +1,101 @@
+/* Sidebar.module.css */
+
+.sidebar {
+  width: 220px;
+  background: var(--sidebar-bg);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  transition: width 0.3s ease;
+  height: 100vh; /* full height */
+  overflow: hidden;
+  position: sticky;  
+}
+
+.collapsed {
+  width: 70px;
+}
+
+.collapseBtn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  margin: 10px;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebarItem {
+  width: 100%;
+  height: 50px; /* equal height */
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease, padding 0.3s ease;
+  white-space: nowrap; /* prevent text wrap */
+}
+
+.sidebarItem svg {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.sidebarItem:hover {
+  background: var(--sidebar-hover);
+}
+
+/* ✅ Collapsed mode: center icons only */
+.collapsed .sidebarItem {
+  justify-content: center;     /* center icon */
+  padding: 0;                  /* remove side padding */
+  gap: 0;                      /* no gap since no text */
+  font-size: 0;                /* hide text safely */
+}
+
+.collapsed .sidebarItem svg {
+  font-size: 1.4rem;           /* slightly bigger icons in collapsed mode */
+}
+
+.logoutBtn {
+  margin-top: auto;
+  width: 100%;
+  height: 50px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+  color: #f87171;
+}
+
+.logoutBtn svg {
+  font-size: 1.2rem;
+}
+
+.logoutBtn:hover {
+  background: #dc2626;
+  color: #fff;
+}
+
+/* ✅ Collapsed logout button */
+.collapsed .logoutBtn {
+  justify-content: center;
+  padding: 0;
+  gap: 0;
+  font-size: 0; /* hide text */
+}
+
+.collapsed .logoutBtn svg {
+  font-size: 1.4rem;
+}

@@ -1,0 +1,51 @@
+/* App.module.css */
+
+.app {
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboardLayout {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 60px); /* Adjust if Header is taller */
+}
+
+/* Main content area (Right of sidebar) */
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  
+ 
+  transition: background-color 0.3s, color 0.3s;
+  overflow-y: auto;
+  background-image: url('1.jpg');
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;       /* full viewport height */
+}
+
+.dashboardLayout {
+  display: flex;
+  flex: 1;             /* take remaining height after header */
+  overflow: hidden;    /* prevent sidebar stretching */
+}
+
+.mainContent {
+  flex: 1;             /* fill remaining width */
+  overflow-y: auto;    /* scroll if content is tall */
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar {
+  width: 240px;
+  height: 100%;        /* full height of dashboardLayout */
+  overflow-y: auto;    /* scroll if sidebar content exceeds height */
+}

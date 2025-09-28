@@ -1,0 +1,154 @@
+/* Promotions.module.css */
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.searchBar {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline-color: #0078d4;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+}
+
+.searchResults {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-height: 180px;
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.resultItem {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.resultItem:hover {
+  background-color: #0078d4;
+  color: #fff;
+}
+
+
+/* Updated form styles for Promotions.module.css */
+
+/* Compact form styles for Promotions.module.css */
+.form {
+  background-color: #fff;
+  padding: 1rem; /* less padding */
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0, 120, 212, 0.15);
+  margin-bottom: 2rem;
+  width: 600px;
+  
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem; /* smaller spacing between rows */
+}
+
+.formGroup label {
+  flex: 0 0 120px; /* slightly smaller label width */
+  font-weight: 600;
+  color: #444;
+  font-size: 0.85rem; /* smaller font size */
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="number"] {
+  flex: 1;
+  padding: 0.4rem 0.6rem; /* slightly smaller padding */
+  font-size: 0.9rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  outline-color: #0078d4;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.formGroup input[type="text"]:read-only {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+  color: #666;
+}
+
+.formGroup input[type="number"]:focus,
+.formGroup input[type="text"]:focus {
+  border-color: #0078d4;
+}
+
+.addBtn {
+  background-color: #0078d4;
+  color: #fff;
+  font-size: 0.95rem;
+  padding: 0.45rem 0; /* smaller height */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+  width: 100%;
+  margin-top: 0.75rem; /* smaller margin */
+}
+
+.addBtn:hover {
+  background-color: #005a9e;
+}
+
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.table th {
+  background-color: #0078d4;
+  color: white;
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background-color: #f0f4f8;
+}

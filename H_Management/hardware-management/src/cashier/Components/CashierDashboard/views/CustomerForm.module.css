@@ -1,0 +1,92 @@
+.formContainer {
+  background-color: #e7f6fa;
+  padding: 25px;
+  border-radius: 10px;
+  height: 100%;
+  box-sizing: border-box;
+  color: aliceblue;
+}
+
+.formContainer h2 {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #64748b;
+  padding-bottom: 5px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 15px;
+}
+input,
+select {
+
+  width: 90%; /* Changed from 90% */
+  padding: 20px;
+  background-color: #030f1f;
+  border: none;
+  border-radius: 5px;
+  color: rgb(5, 5, 5);
+  font-size: 14px;
+
+}
+
+
+
+textarea {
+  width: 100%; 
+  
+  padding: 10px;
+  background-color: #334155;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+  margin-bottom: 15px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 15px;
+}
+
+.actionButton {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.green {
+  background-color: #039b1c;
+}
+
+.orange {
+  background-color: #047cec;
+}
+
+.red {
+  background-color: #991612;
+}
+
+.successMessage {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 10px;
+  animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}

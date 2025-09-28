@@ -1,0 +1,111 @@
+.container {
+  padding: 20px;
+  background-color: #d0d4db;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.customerSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.customerSection input {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.addCustomerBtn {
+  padding: 6px 12px;
+  background-color: #2979ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.invoiceTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.invoiceTable th,
+.invoiceTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.invoiceTable input {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.addItemBtn {
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.summary {
+  background: #eef3ff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color:black;
+}
+
+.summary label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.summary input,
+.summary select {
+  width: 50%;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.generateBtn {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.printBtn {
+  background-color: #009688;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.clearBtn {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

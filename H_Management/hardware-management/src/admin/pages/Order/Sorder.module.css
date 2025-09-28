@@ -1,0 +1,140 @@
+.ccontainer {
+  padding: 30px 40px;
+  max-width: 700px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ccontainer .form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ccontainer .formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #222;
+}
+
+select,
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  outline-offset: 2px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+select:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
+  border-color: #347deb;
+  box-shadow: 0 0 6px rgba(52, 125, 235, 0.5);
+}
+
+.itemList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.itemButton {
+  padding: 8px 18px;
+  background-color: #f0f4ff;
+  border: 1.5px solid #347deb;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #347deb;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+}
+
+.itemButton:hover {
+  background-color: #347deb;
+  color: white;
+}
+
+.quantityInput {
+  width: 80px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  outline-offset: 2px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+.quantityInput:focus {
+  border-color: #347deb;
+  box-shadow: 0 0 6px rgba(52, 125, 235, 0.5);
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  color: #e63946;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding-left: 6px;
+}
+
+.removeBtn:hover {
+  color: #a81d26;
+}
+
+.submitBtn {
+  padding: 14px 22px;
+  background-color: #347deb;
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(52, 125, 235, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.submitBtn:hover {
+  background-color: #2559b2;
+  box-shadow: 0 6px 16px rgba(37, 89, 178, 0.6);
+}
+
+/* Fix list style and spacing */
+.ccontainer ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 8px;
+}
+
+.ccontainer li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #222;
+}
+.section h2{color: #f0f4ff;}

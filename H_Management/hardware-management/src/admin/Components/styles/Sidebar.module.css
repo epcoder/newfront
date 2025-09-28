@@ -1,0 +1,164 @@
+/* Sidebar.module.css */
+
+.sidebar {
+  width: 240px;
+  height: 90vh;               /* full viewport height */
+  overflow-y: auto;            /* scroll if content exceeds height */
+  background: linear-gradient(to bottom right, #101e3a, #0c2f5e);
+  color: #dcdcdc;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: background-color 0.3s;
+}
+
+.sidebar .line {
+  border: none;
+  border-top: 2px solid #666;
+  margin: 20px 0;
+}
+
+.sidebar h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 5px;
+  color: #dcdcdc;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin: 6px 0;
+}
+
+.sidebar a {
+  color: inherit;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: block;
+  transition: background-color 0.2s;
+}
+
+.sidebar a:hover {
+  background-color: var(--hover-light);
+}
+
+.parentMenu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 6px;
+  color: #ddd;
+  transition: background 0.2s;
+}
+
+.parentMenu:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.activeParent {
+  background: #1e3a8a; /* highlight when expanded */
+  color: #fff;
+  font-weight: bold;
+}
+
+.subMenu {
+  padding-left: 15px;       /* indent submenu */
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Keep buttons consistent */
+ul li button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+ul li button:hover {
+  color: #00bfff; /* highlight on hover */
+  background-color: rgba(0, 191, 255, 0.1);
+}
+
+.logoutSection {
+  margin-top: 220px;  /* Pushes logout to bottom */
+  padding: 15px;
+}
+
+.logoutBtn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #dc2626; /* red tone */
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.logoutBtn:hover {
+  background: #b91c1c; /* darker red */
+}
+
+
+.parentMenu span {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #fff; /* Adjust text color as needed */
+}
+
+.activeParent span::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  transform: skewX(-25deg);
+  animation: shine 1.5s forwards;
+  animation-iteration-count: infinite;
+  z-index: 2;
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+

@@ -1,0 +1,164 @@
+/* Login.module.css */
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromBottom {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* Base Container for the entire login page */
+.loginContainer {
+    font-family: 'Roboto', sans-serif; /* Ensuring consistency with previous example */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #f1f1f1; /* Light text for dark mode */
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Ensures nothing spills out */
+
+    /* Background Image from your upload */
+    background: url('./logobackground.png') no-repeat center center fixed; /* Assuming the blurred image is named this and in the same folder */
+    background-size: cover;
+}
+
+/* Dark Overlay for Readability */
+.loginContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black overlay */
+    z-index: 1; /* Ensure overlay is above background but below form */
+}
+
+/* Login Form Card Styling */
+.loginForm {
+    position: relative;
+    z-index: 2; /* Ensure form is above the overlay */
+    background-color: rgba(30, 30, 30, 0.85); /* Darker, slightly transparent background for the form card */
+    backdrop-filter: blur(8px); /* Frosted glass effect */
+    border-radius: 15px;
+    padding: 40px; /* Increased padding for more space */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); /* Enhanced shadow */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+    width: 100%;
+    max-width: 380px; /* Slightly adjusted max-width to match image */
+    box-sizing: border-box; /* Include padding in width calculation */
+
+    animation: fadeIn 0.8s ease-out forwards; /* Animation on load */
+}
+
+/* Logo Styling */
+.logo {
+    width: 180px; /* Adjusted size to match the image closely */
+    height: auto;
+    margin-bottom: 30px; /* Increased margin below logo */
+    animation: fadeIn 1s ease-out forwards; /* Subtle animation */
+}
+
+/* Error message styling */
+.loginForm p {
+    color: #e74c3c; /* Red for error messages */
+    margin-bottom: 15px;
+    font-size: 14px;
+    animation: slideInFromBottom 0.3s ease-out forwards;
+}
+
+/* Input Fields */
+.loginForm input {
+    width: 100%;
+    padding: 12px 18px; /* Slightly more padding for a larger field look */
+    margin-bottom: 18px; /* Spacing between inputs */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    background-color: rgba(255, 255, 255, 0.1); /* Lighter background for inputs */
+    border-radius: 8px; /* Rounded corners */
+    color: #f1f1f1;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s ease; /* Smooth transition for focus */
+}
+
+.loginForm input::placeholder {
+    color: #cccccc; /* Lighter placeholder text */
+    opacity: 0.7;
+}
+
+.loginForm input:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly lighter on focus */
+    border-color: #f39c12; /* Orange border on focus */
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.3); /* Soft glow */
+}
+
+/* Login Button */
+.loginForm button {
+    width: 60%;
+    padding: 14px; /* Larger padding for button */
+    margin-top: 10px; /* Space above button */
+    border: none;
+    border-radius: 20px;
+    background-color: #f39c12; /* Orange color matching logo */
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-transform: uppercase; /* Capitalize text */
+}
+
+.loginForm button:hover {
+ 
+    background-color: #e67e22; /* Slightly darker orange on hover */
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  background-position: 100% 0;
+  transform: translateY(-3px);
+  box-shadow: 
+    0 10px 25px rgba(130, 189, 225, 0.4),
+    0 0 20px rgba(102, 126, 234, 0.2);
+  animation: pulse 2s infinite;
+}
+
+.loginForm button:hover::before {
+  left: 100%;
+
+}
+
+.loginForm button:active {
+    transform: translateY(0); /* Press down effect */
+    background-color: #d35400;
+}
+
+/* Forgot Password Link */
+.forgotPassword {
+    display: block; /* Make it a block element to control margin */
+    margin-top: 20px; /* Space above link */
+    color: #f39c12; /* Orange color */
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    animation: slideInFromBottom 0.6s ease-out forwards; /* Animated entrance */
+}
+
+.forgotPassword:hover {
+    color: #e67e22; /* Darker orange on hover */
+    text-decoration: underline; /* Underline on hover */
+}

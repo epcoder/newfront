@@ -1,0 +1,231 @@
+/* BillingPage.module.css */
+.container {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 18px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: #222;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(12, 23, 40, 0.06);
+}
+
+/* Title */
+.title {
+  font-size: 28px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 16px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.col {
+  flex: 1;
+}
+
+/* Inputs */
+.label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  outline: none;
+  font-size: 14px;
+}
+
+.input:focus {
+  border-color: #6fa8dc;
+  box-shadow: 0 0 0 3px rgba(111,168,220,0.12);
+}
+
+.suggestions {
+  margin: 6px 0 0 0;
+  padding: 6px 0;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background: #fafafa;
+  list-style: none;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.suggestions li {
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.suggestions li:hover { background: #f0f7ff; }
+
+.customerActions {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+.customerActions button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #2b7cff;
+  color: white;
+  cursor: pointer;
+}
+.customerActions button:nth-child(2) { background: #6c757d; }
+
+/* Creditor message */
+.creditorMessage {
+  margin-top: 8px;
+  padding: 8px;
+  background: #fff4e6;
+  border-left: 4px solid #ffb04d;
+  border-radius: 6px;
+  color: #5a3f00;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.table th, .table td {
+  padding: 10px;
+  border-bottom: 1px solid #f1f1f1;
+  text-align: left;
+}
+.table th {
+  background: #fbfbfb;
+  font-weight: 700;
+}
+.qtyInput {
+  width: 72px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+.discountInput {
+  width: 90px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.removeBtn {
+  background: transparent;
+  border: 1px solid #ff6b6b;
+  color: #ff6b6b;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Bottom bar */
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  gap: 12px;
+}
+
+.totals {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.totalValue {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0b5ed7;
+}
+
+/* Action buttons */
+.actionButtons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.actionButtons button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #0b5ed7;
+  color: white;
+  cursor: pointer;
+}
+.actionButtons button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.cancelBtn {
+  background: #6c757d !important;
+}
+.smallBtn {
+  padding: 6px 8px;
+  background: #9ca3af;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 12, 22, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+.modal {
+  width: 420px;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(18, 38, 63, 0.2);
+}
+.modal h3 { margin-top: 0; }
+.modal label {
+  display: block;
+  margin: 10px 0;
+}
+.modal input, .modal select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6;
+}
+
+/* modal actions */
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* split payment row */
+.splitRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* small utilities */
+.removeBtn { font-size: 13px; }
+

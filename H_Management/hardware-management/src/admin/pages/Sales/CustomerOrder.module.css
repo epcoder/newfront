@@ -1,0 +1,67 @@
+.container {
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+  background-color: #f4f6f8;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.accepted {
+  color: green;
+  font-weight: bold;
+}
+
+.rejected {
+  color: red;
+  font-weight: bold;
+}
+
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+
+button {
+  padding: 6px 10px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.accept {
+  background-color: #4caf50;
+  color: white;
+}
+
+.accept:hover {
+  background-color: #45a049;
+}
+
+.reject {
+  background-color: #f44336;
+  color: white;
+}
+
+.reject:hover {
+  background-color: #e53935;
+}
