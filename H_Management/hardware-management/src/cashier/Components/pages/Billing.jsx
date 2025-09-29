@@ -1,17 +1,10 @@
 // src/components/cashier/TransactionDetails/BillingPage.jsx
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from "./Billing.module.css";
-import axios from "axios";
 import { getAllItems } from "../../../Api/CA/ItemApi";
 import { saveTransaction } from "../../../Api/CA/TransactionApi";
 
 export default function BillingPage() {
-  // --- Customer state ---
-  const [customerQuery, setCustomerQuery] = useState("");
-  const [allCustomers, setAllCustomers] = useState([]);
-  const [customerSuggestions, setCustomerSuggestions] = useState([]);
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-
   // --- Item state ---
   const [itemQuery, setItemQuery] = useState("");
   const [itemSuggestions, setItemSuggestions] = useState([]);
@@ -23,26 +16,6 @@ export default function BillingPage() {
   const [amountGiven, setAmountGiven] = useState(0);
 
   const printRef = useRef(); // For print
-
-  // --- Fetch all customers once ---
-  useEffect(() => {
-    axios
-      .get("https://hms-back-5gbr.onrender.com/api/v1/customer")
-      .then((res) => setAllCustomers(res.data))
-      .catch(() => alert("Failed to fetch customers"));
-  }, []);
-
-  // --- Filter customer suggestions ---
-  useEffect(() => {
-    if (customerQuery.length >= 1) {
-      const filtered = allCustomers.filter(
-        (c) =>
-          (c.name && c.name.toLowerCase().includes(customerQuery.toLowerCase())) ||
-          (c.nic && c.nic.toLowerCase().includes(customerQuery.toLowerCase()))
-      );
-      setCustomerSuggestions(filtered);
-    } else setCustomerSuggestions([]);
-  }, [customerQuery, allCustomers]);
 
   // --- Fetch all items ---
   useEffect(() => {
@@ -62,8 +35,10 @@ export default function BillingPage() {
     if (itemQuery.length >= 1) {
       const filtered = allItems.filter(
         (i) =>
-          (i.item_name && i.item_name.toLowerCase().includes(itemQuery.toLowerCase())) ||
-          (i.item_id && i.item_id.toLowerCase().includes(itemQuery.toLowerCase()))
+          (i.item_name &&
+            i.item_name.toLowerCase().includes(itemQuery.toLowerCase())) ||
+          (i.item_id &&
+            i.item_id.toLowerCase().includes(itemQuery.toLowerCase()))
       );
       setItemSuggestions(filtered);
     } else setItemSuggestions([]);
@@ -80,7 +55,8 @@ export default function BillingPage() {
       const newCart = [...cart];
       newCart[idx].itemQuantity += 1;
       newCart[idx].totalPrice =
-        newCart[idx].itemQuantity * newCart[idx].itemUnitPrice - (newCart[idx].discount || 0);
+        newCart[idx].itemQuantity * newCart[idx].itemUnitPrice -
+        (newCart[idx].discount || 0);
       setCart(newCart);
     } else {
       setCart((prev) => [
@@ -105,28 +81,35 @@ export default function BillingPage() {
     setCart((prev) =>
       prev.map((it) =>
         it.item_id === itemId
-          ? { ...it, itemQuantity: Number(qty), totalPrice: Number(qty) * it.itemUnitPrice - (it.discount || 0) }
+          ? {
+              ...it,
+              itemQuantity: Number(qty),
+              totalPrice:
+                Number(qty) * it.itemUnitPrice - (it.discount || 0),
+            }
           : it
       )
     );
   };
 
-  const removeCartItem = (itemId) => setCart(cart.filter((c) => c.item_id !== itemId));
+  const removeCartItem = (itemId) =>
+    setCart(cart.filter((c) => c.item_id !== itemId));
 
-  const subTotal = useMemo(() => cart.reduce((sum, i) => sum + i.totalPrice, 0), [cart]);
+  const subTotal = useMemo(
+    () => cart.reduce((sum, i) => sum + i.totalPrice, 0),
+    [cart]
+  );
   const change = transactionType === "CASH" ? amountGiven - subTotal : 0;
 
   // --- Complete payment ---
   const handleCompletePayment = async () => {
-    if (transactionType === "CREDIT" && !selectedCustomer)
-      return alert("⚠️ Customer must be selected for credit transactions!");
     if (cart.length === 0) return alert("Add items to cart first");
 
     const transaction = {
       transactionType,
       cashierId: "CASH001",
       cashierName: "Priya Perera",
-      customerId: selectedCustomer?.id || null,
+      customerId: null, // ✅ removed customer requirement
       items: cart.map((i) => ({
         itemId: i.item_id,
         itemName: i.itemName,
@@ -141,9 +124,7 @@ export default function BillingPage() {
       await saveTransaction(transaction);
       alert("Payment saved successfully!");
       setCart([]);
-      setSelectedCustomer(null);
       setAmountGiven(0);
-      setCustomerQuery("");
     } catch (err) {
       console.error(err);
       alert("Failed to save transaction");
@@ -181,39 +162,6 @@ export default function BillingPage() {
       <h1>💳 Billing Page</h1>
 
       <div ref={printRef}>
-        {/* Customer Section */}
-        <div className={styles.section}>
-          <h3>
-            Customer {transactionType === "CREDIT" && "(required for Credit)"}
-          </h3>
-          <input
-            placeholder="Type name or NIC..."
-            value={customerQuery}
-            onChange={(e) => {
-              setCustomerQuery(e.target.value);
-              setSelectedCustomer(null);
-            }}
-          />
-          {customerSuggestions.length > 0 && (
-            <ul className={styles.suggestions}>
-              {customerSuggestions.map((c) => (
-                <li
-                  key={c.id}
-                  onClick={() => {
-                    setSelectedCustomer(c);
-                    setCustomerQuery("");
-                  }}
-                >
-                  {c.name} ({c.nic})
-                </li>
-              ))}
-            </ul>
-          )}
-          {selectedCustomer && (
-            <p>✅ Selected: {selectedCustomer.name} ({selectedCustomer.nic})</p>
-          )}
-        </div>
-
         {/* Item Section */}
         <div className={styles.section}>
           <h3>Items</h3>
@@ -226,7 +174,8 @@ export default function BillingPage() {
             <ul className={styles.suggestions}>
               {itemSuggestions.map((i) => (
                 <li key={i.item_id} onClick={() => addItemToCart(i)}>
-                  {i.item_id} - {i.item_name} (Price: {i.item_price}, Stock: {i.item_quantity})
+                  {i.item_id} - {i.item_name} (Price: {i.item_price}, Stock:{" "}
+                  {i.item_quantity})
                 </li>
               ))}
             </ul>
@@ -270,9 +219,6 @@ export default function BillingPage() {
           <p>Subtotal: {subTotal.toFixed(2)}</p>
           {transactionType === "CASH" && <p>Amount Given: {amountGiven}</p>}
           {transactionType === "CASH" && <p>Change: {change.toFixed(2)}</p>}
-          {transactionType === "CREDIT" && selectedCustomer && (
-            <p>Credit Customer: {selectedCustomer.name}</p>
-          )}
         </div>
       </div>
 
@@ -283,9 +229,7 @@ export default function BillingPage() {
         <button
           onClick={() => {
             setCart([]);
-            setSelectedCustomer(null);
             setAmountGiven(0);
-            setCustomerQuery("");
           }}
         >
           🔄 New Transaction

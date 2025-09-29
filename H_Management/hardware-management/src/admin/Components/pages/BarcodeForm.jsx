@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import styles from './BarcodeForm.module.css';
 
 const BarcodeForm = () => {
@@ -63,4 +63,4 @@ const BarcodeForm = () => {
   );
 };
 
-export default BarcodeForm;
+export default BarcodeForm;*/

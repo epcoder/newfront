@@ -33,6 +33,7 @@ select {
 .table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #4a8491;
 }
 
 .table th, .table td {

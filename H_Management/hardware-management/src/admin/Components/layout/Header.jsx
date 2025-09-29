@@ -16,7 +16,7 @@ const Header = () => (
         animate={{ x: ["100%", "-100%"] }}
         transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
       >
-        Welcome, Admin
+        Welcome, Admin1
       </motion.span>
     </div>
   </header>

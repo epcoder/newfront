@@ -32,11 +32,7 @@ const Sidebar = () => {
             <ArrowRepeat /> <b>Switch Dashboard</b>
           </button>
         </li>
-        <li>
-          <button onClick={() => navigate("/admin/barcodes")}>
-            <UpcScan /> <b>Create Barcode</b>
-          </button>
-        </li>
+        
         <li>
           <button onClick={() => navigate("/admin/promotions")}>
             <Megaphone /> <b>Promotions</b>

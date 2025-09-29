@@ -26,7 +26,7 @@ const Header = () => {
       </motion.div>
 
       <div className={styles.headerActions}>
-        <span className={styles.username}>Username-00</span>
+        <span className={styles.username}>Cashier-01</span>
         <motion.button
           whileHover={{ rotate: 180, scale: 1.2 }}
           transition={{ duration: 0.3 }}

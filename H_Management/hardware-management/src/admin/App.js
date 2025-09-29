@@ -10,7 +10,7 @@ import TopNav from "./Components/layout/TopNav";
 import Footer from "./Components/layout/Footer";
 
 //sidebar pages
-import BarcodeForm from "./Components/pages/BarcodeForm";
+/*import BarcodeForm from "./Components/pages/BarcodeForm";*/
 import Promotions from "./Components/pages/Promotions";
 import Reorder from "./Components/pages/Reorder";
 import SwitchDashboard from "./Components/pages/Swichdashboard";
@@ -58,7 +58,7 @@ function App() {
               <TopNav />
               <Routes>
                 <Route path="/" element={<Reorder/>}/>
-                <Route path="/barcodes" element={<BarcodeForm />} />
+                
                 <Route path="/promotions" element={<Promotions />} />
                 <Route path="/reorder-Alert" element={<Reorder />} />
                 <Route path="/switch-dashboard" element={<SwitchDashboard />} />
