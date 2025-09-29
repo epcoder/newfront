@@ -1,89 +1,90 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Order.module.css"; // CSS Module
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styles from "./Order.module.css";
 
-const OrderDisplay = () => {
+const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [templateValues, setTemplateValues] = useState({}); // for email template
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-  // Fetch all orders from backend
-  const fetchOrders = async () => {
-    try {
-      const response = await axios.get("https://hms-back-5gbr.onrender.com/api/v1/order/all");
-      setOrders(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching orders:", error);
-      setLoading(false);
-    }
-  };
-
+  // Fetch all orders
   useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get("https://hms-back-5gbr.onrender.com/api/v1/order/getAllOrders");
+        setOrders(response.data);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    };
     fetchOrders();
   }, []);
 
-  // Optional: Payment verification
-  const handleVerifyPayment = async (orderId) => {
+  // Handle sending email
+  const sendEmail = async (order) => {
+    if (!order) return;
+    setLoading(true);
     try {
       const response = await axios.post(
-        "https://hms-back-5gbr.onrender.com/api/v1/order/payment-verify",
-        { orderId } // adjust payload as needed
+        `https://hms-back-5gbr.onrender.com/api/v1/email/sendTemplate`,
+        templateValues,
+        {
+          params: {
+            to: order.email,
+            templateName: "orderTemplate", // replace with your template name
+          },
+        }
       );
-      alert(response.data);
+      setMessage(`Email sent to ${order.email}`);
     } catch (error) {
-      console.error(error);
-      alert("Payment verification failed");
+      console.error("Error sending email:", error);
+      setMessage("Failed to send email");
+    } finally {
+      setLoading(false);
     }
   };
-
-  // Optional: Ship order
-  const handleShipOrder = async (orderId) => {
-    try {
-      const response = await axios.post(
-        "https://hms-back-5gbr.onrender.com/api/v1/order/ship-order",
-        { orderId } // adjust payload as needed
-      );
-      alert(response.data);
-    } catch (error) {
-      console.error(error);
-      alert("Order shipping failed");
-    }
-  };
-
-  if (loading) return <p>Loading orders...</p>;
 
   return (
     <div className={styles.container}>
-      <h2>Order List</h2>
-      <table className={styles.table}>
+      <h1>Orders</h1>
+      {message && <div className={styles.message}>{message}</div>}
+      <table className={styles.ordersTable}>
         <thead>
           <tr>
             <th>Order ID</th>
             <th>Customer</th>
-            <th>Total Amount</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Payment Status</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {orders.map((order) => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>{order.customerName}</td>
-              <td>{order.totalAmount}</td>
-              <td>{order.status}</td>
+            <tr key={order.order_id}>
+              <td>{order.order_id}</td>
+              <td>
+                {order.first_name} {order.last_name}
+              </td>
+              <td>{order.email}</td>
+              <td>{order.phone_number}</td>
+              <td>{order.payment_status ? "Paid" : "Pending"}</td>
+              <td>{order.status ? "Shipped" : "Processing"}</td>
               <td>
                 <button
-                  className={styles.verifyBtn}
-                  onClick={() => handleVerifyPayment(order.id)}
+                  className={styles.sendEmailButton}
+                  onClick={() => {
+                    setSelectedOrder(order);
+                    sendEmail(order);
+                  }}
+                  disabled={loading}
                 >
-                  Verify Payment
-                </button>
-                <button
-                  className={styles.shipBtn}
-                  onClick={() => handleShipOrder(order.id)}
-                >
-                  Ship Order
+                  {loading && selectedOrder?.order_id === order.order_id
+                    ? "Sending..."
+                    : "Send Email"}
                 </button>
               </td>
             </tr>
@@ -94,4 +95,4 @@ const OrderDisplay = () => {
   );
 };
 
-export default OrderDisplay;
+export default OrdersPage;

@@ -1,5 +1,5 @@
 // src/components/cashier/TransactionDetails/BillingPage.jsx
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from "./Billing.module.css";
 import axios from "axios";
 import { getAllItems } from "../../../Api/CA/ItemApi";
@@ -22,7 +22,9 @@ export default function BillingPage() {
   const [transactionType, setTransactionType] = useState("CASH");
   const [amountGiven, setAmountGiven] = useState(0);
 
-  // --- Fetch all customers ---
+  const printRef = useRef(); // For print
+
+  // --- Fetch all customers once ---
   useEffect(() => {
     axios
       .get("https://hms-back-5gbr.onrender.com/api/v1/customer")
@@ -30,11 +32,13 @@ export default function BillingPage() {
       .catch(() => alert("Failed to fetch customers"));
   }, []);
 
-  // --- Customer autocomplete ---
+  // --- Filter customer suggestions ---
   useEffect(() => {
     if (customerQuery.length >= 1) {
-      const filtered = allCustomers.filter((c) =>
-        c.name.toLowerCase().includes(customerQuery.toLowerCase())
+      const filtered = allCustomers.filter(
+        (c) =>
+          (c.name && c.name.toLowerCase().includes(customerQuery.toLowerCase())) ||
+          (c.nic && c.nic.toLowerCase().includes(customerQuery.toLowerCase()))
       );
       setCustomerSuggestions(filtered);
     } else setCustomerSuggestions([]);
@@ -53,20 +57,23 @@ export default function BillingPage() {
     fetchItems();
   }, []);
 
-  // --- Item suggestions ---
+  // --- Filter item suggestions ---
   useEffect(() => {
     if (itemQuery.length >= 1) {
       const filtered = allItems.filter(
         (i) =>
-          i.item_name.toLowerCase().includes(itemQuery.toLowerCase()) ||
-          i.item_id.toLowerCase().includes(itemQuery.toLowerCase())
+          (i.item_name && i.item_name.toLowerCase().includes(itemQuery.toLowerCase())) ||
+          (i.item_id && i.item_id.toLowerCase().includes(itemQuery.toLowerCase()))
       );
       setItemSuggestions(filtered);
     } else setItemSuggestions([]);
   }, [itemQuery, allItems]);
 
+  // --- Add item to cart ---
   const addItemToCart = (item) => {
-    if (item.item_quantity === 0) return alert(`❌ Item "${item.item_name}" is out of stock!`);
+    if (item.item_quantity === 0) {
+      return alert(`❌ Item "${item.item_name}" is out of stock!`);
+    }
 
     const idx = cart.findIndex((c) => c.item_id === item.item_id);
     if (idx >= 0) {
@@ -93,6 +100,7 @@ export default function BillingPage() {
     setItemSuggestions([]);
   };
 
+  // --- Update cart item quantity ---
   const updateCartItem = (itemId, qty) => {
     setCart((prev) =>
       prev.map((it) =>
@@ -108,6 +116,7 @@ export default function BillingPage() {
   const subTotal = useMemo(() => cart.reduce((sum, i) => sum + i.totalPrice, 0), [cart]);
   const change = transactionType === "CASH" ? amountGiven - subTotal : 0;
 
+  // --- Complete payment ---
   const handleCompletePayment = async () => {
     if (transactionType === "CREDIT" && !selectedCustomer)
       return alert("⚠️ Customer must be selected for credit transactions!");
@@ -141,104 +150,156 @@ export default function BillingPage() {
     }
   };
 
+  // --- Print invoice ---
+  const handlePrint = () => {
+    const printContents = printRef.current.innerHTML;
+    const newWin = window.open("", "", "width=800,height=600");
+    newWin.document.write(`
+      <html>
+        <head>
+          <title>Invoice</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; }
+          </style>
+        </head>
+        <body>
+          ${printContents}
+        </body>
+      </html>
+    `);
+    newWin.document.close();
+    newWin.focus();
+    newWin.print();
+    newWin.close();
+  };
+
   return (
     <div className={styles.container}>
       <h1>💳 Billing Page</h1>
 
-      {/* Customer Section */}
-      <div className={styles.section}>
-        <h3>Customer (optional for Cash)</h3>
-        <input
-          placeholder="Type name..."
-          value={customerQuery}
-          onChange={(e) => setCustomerQuery(e.target.value)}
-        />
-        {customerSuggestions.length > 0 && (
-          <ul className={styles.suggestions}>
-            {customerSuggestions.map((c) => (
-              <li key={c.id} onClick={() => setSelectedCustomer(c)}>
-                {c.name} ({c.nic})
-              </li>
-            ))}
-          </ul>
-        )}
-        {selectedCustomer && <p>✅ {selectedCustomer.name} ({selectedCustomer.nic})</p>}
-      </div>
+      <div ref={printRef}>
+        {/* Customer Section */}
+        <div className={styles.section}>
+          <h3>
+            Customer {transactionType === "CREDIT" && "(required for Credit)"}
+          </h3>
+          <input
+            placeholder="Type name or NIC..."
+            value={customerQuery}
+            onChange={(e) => {
+              setCustomerQuery(e.target.value);
+              setSelectedCustomer(null);
+            }}
+          />
+          {customerSuggestions.length > 0 && (
+            <ul className={styles.suggestions}>
+              {customerSuggestions.map((c) => (
+                <li
+                  key={c.id}
+                  onClick={() => {
+                    setSelectedCustomer(c);
+                    setCustomerQuery("");
+                  }}
+                >
+                  {c.name} ({c.nic})
+                </li>
+              ))}
+            </ul>
+          )}
+          {selectedCustomer && (
+            <p>✅ Selected: {selectedCustomer.name} ({selectedCustomer.nic})</p>
+          )}
+        </div>
 
-      {/* Item Section */}
-      <div className={styles.section}>
-        <h3>Items</h3>
-        <input
-          placeholder="Search item by name or ID"
-          value={itemQuery}
-          onChange={(e) => setItemQuery(e.target.value)}
-        />
-        {itemSuggestions.length > 0 && (
-          <ul className={styles.suggestions}>
-            {itemSuggestions.map((i) => (
-              <li key={i.item_id} onClick={() => addItemToCart(i)}>
-                {i.item_id} - {i.item_name} (Price: {i.item_price}, Stock: {i.item_quantity})
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+        {/* Item Section */}
+        <div className={styles.section}>
+          <h3>Items</h3>
+          <input
+            placeholder="Search item by name or ID"
+            value={itemQuery}
+            onChange={(e) => setItemQuery(e.target.value)}
+          />
+          {itemSuggestions.length > 0 && (
+            <ul className={styles.suggestions}>
+              {itemSuggestions.map((i) => (
+                <li key={i.item_id} onClick={() => addItemToCart(i)}>
+                  {i.item_id} - {i.item_name} (Price: {i.item_price}, Stock: {i.item_quantity})
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
 
-      {/* Invoice Table */}
-      <div className={styles.section}>
-        <h3>Invoice</h3>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Name</th>
-              <th>Qty</th>
-              <th>Unit Price</th>
-              <th>Discount</th>
-              <th>Total</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cart.length === 0 && <tr><td colSpan="7">No items</td></tr>}
-            {cart.map((i) => (
-              <tr key={i.item_id}>
-                <td>{i.item_id}</td>
-                <td>{i.itemName}</td>
-                <td><input type="number" min="1" value={i.itemQuantity} onChange={(e) => updateCartItem(i.item_id, e.target.value)} /></td>
-                <td>{i.itemUnitPrice}</td>
-                <td>{i.discount}</td>
-                <td>{i.totalPrice.toFixed(2)}</td>
-                <td><button onClick={() => removeCartItem(i.item_id)}>Remove</button></td>
+        {/* Invoice Table */}
+        <div className={styles.section}>
+          <h3>Invoice</h3>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Discount</th>
+                <th>Total</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {cart.length === 0 && (
+                <tr>
+                  <td colSpan="6">No items</td>
+                </tr>
+              )}
+              {cart.map((i) => (
+                <tr key={i.item_id}>
+                  <td>{i.item_id}</td>
+                  <td>{i.itemName}</td>
+                  <td>{i.itemQuantity}</td>
+                  <td>{i.itemUnitPrice}</td>
+                  <td>{i.discount}</td>
+                  <td>{i.totalPrice.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-      {/* Summary Section */}
-      <div className={styles.section}>
-        <p>Subtotal: {subTotal.toFixed(2)}</p>
-        <label>
-          Transaction Type:
-          <select value={transactionType} onChange={(e) => setTransactionType(e.target.value)}>
-            <option value="CASH">Cash</option>
-            <option value="CREDIT">Credit</option>
-          </select>
-        </label>
-        {transactionType === "CASH" && (
-          <>
-            <input type="number" placeholder="Amount Given" value={amountGiven} onChange={(e) => setAmountGiven(Number(e.target.value))} />
-            <p>Change: {change.toFixed(2)}</p>
-          </>
-        )}
+          {/* Summary */}
+          <p>Subtotal: {subTotal.toFixed(2)}</p>
+          {transactionType === "CASH" && <p>Amount Given: {amountGiven}</p>}
+          {transactionType === "CASH" && <p>Change: {change.toFixed(2)}</p>}
+          {transactionType === "CREDIT" && selectedCustomer && (
+            <p>Credit Customer: {selectedCustomer.name}</p>
+          )}
+        </div>
       </div>
 
       {/* Actions */}
       <div className={styles.section}>
         <button onClick={handleCompletePayment}>💾 Save Payment</button>
-        <button onClick={() => window.print()}>🖨️ Print Invoice</button>
-        <button onClick={() => { setCart([]); setSelectedCustomer(null); setAmountGiven(0); setCustomerQuery(""); }}>🔄 New Transaction</button>
+        <button onClick={handlePrint}>🖨️ Print Invoice</button>
+        <button
+          onClick={() => {
+            setCart([]);
+            setSelectedCustomer(null);
+            setAmountGiven(0);
+            setCustomerQuery("");
+          }}
+        >
+          🔄 New Transaction
+        </button>
+        <label>
+          Transaction Type:
+          <select
+            value={transactionType}
+            onChange={(e) => setTransactionType(e.target.value)}
+          >
+            <option value="CASH">Cash</option>
+            <option value="CREDIT">Credit</option>
+          </select>
+        </label>
       </div>
     </div>
   );
